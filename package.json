@@ -32,9 +32,11 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "browserslist": "^4.10.0",
     "font-awesome": "^4.7.0",
-    "i": "^0.3.6"
+    "i": "^0.3.6",
+    "leaflet-geosearch": "^2.7.0"
   }
 }
