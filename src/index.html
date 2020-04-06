@@ -11,18 +11,119 @@
     <title>COVID-19 PH Tracker</title>
 </head>
 <body>
-   
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <form action="GET" class="map-form">
-                    <input type="text" class="covid-input">
-                    <input type="submit" value="search">
-                </form>
-                <div id="covid-map"></div>
+    
+    <!-- header -->
+    <header class="header" style="display:none;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="header-inner  d-flex align-items-center">
+                        <div class="header-col header-left">
+                            <a href="#" class="header-logo">
+                                <h2>COVID 19 Tracker PH</h2>
+                            </a>
+                        </div>
+                        <div class="header-col header-right flex-fill">
+                            <nav class="navigation">
+                                <ul class="nav nav-pills justify-content-end flex-column">
+                                    <li class="nav-item"><a class="nav-link active" href="#">Cases</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#">Fatality Rate</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#">Map Search</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#">Checkpoints</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </header>
+    <!-- end header -->
+
+    
+    <!-- main content -->
+    <main>
+        <!-- sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-text">
+                <h2 class="sidebar-title">COVID 19 Tracker PH</h2>
+            </div>
+            <nav class="navigation">
+                <ul class="nav nav-pills justify-content-end flex-column">
+                    <li class="nav-item"><a class="nav-link" href="#">Cases</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Fatality Rate</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Map Search</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Checkpoints</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <!-- end of sidebar -->
+
+        <!-- content -->
+        
+        <!-- section wrapper -->
+        <div class="section-wrapper">
+            <!-- section 1 -->
+            <section class="section total-case" id="total-case">
+                <div class="container-fluid">
+                    <h2 class="section-title">Total Cases in the Philippines</h2>
+                    <div class="jumbotron total-case-main text-center">
+                        <h1 class="display-4 covid-total" data-total-case="total">
+                            <span class="spinner-border text-secondary" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </span>
+                        </h1>
+                        <p class="lead">Total Case</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card total-case-item case-admitted">
+                                <div class="card-body">
+                                    <h3 class="card-title  covid-total" data-total-case="admitted">
+                                        <span class="spinner-border text-light" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </span>
+                                    </h3>
+                                </div>
+                                <div class="card-footer">Admitted</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card total-case-item case-recover">
+                                <div class="card-body">
+                                    <h3 class="card-title covid-total" data-total-case="recover">
+                                        <span class="spinner-border text-light" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </span>
+                                    </h3>
+                                </div>
+                                <div class="card-footer">Recovered</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card total-case-item case-die">
+                                <div class="card-body">
+                                    <h3 class="card-title covid-total" data-total-case="die">
+                                        <span class="spinner-border text-light" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </span>
+                                    </h3>
+                                </div>
+                                <div class="card-footer">Died</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- end section 1 -->
+        </div>
+
+        <!-- end of content -->
+
+    </main>
+    <!-- end main content -->
+
+    
 
 </body>
 </html>

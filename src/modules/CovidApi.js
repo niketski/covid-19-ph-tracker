@@ -13,8 +13,7 @@ export default class CovidApi {
         };
     }
 
-    // private keyword is not supported, I used a prefix '_' to consider as private function
-    async _request(url, callback) {
+    async get(url, callback) {
         try {
             const response = await axios.get(url);
             callback(response);
@@ -24,23 +23,9 @@ export default class CovidApi {
         }
     }
 
-    getCases(callback) {
-        this._request(`${this.baseUrl}/${this.endPoints.cases}`, callback);
-    }
-
-    getCasesOutside(callback) {
-       this._request(`${this.baseUrl}/${this.endPoints.casesOutside}`, callback);
-    }
-
-    getTestResults(callback) {
-        this._request(`${this.baseUrl}/${this.endPoints.testResults}`, callback);
-    }
-
-    getCheckpoints(callback) {
-        this._request(`${this.baseUrl}/${this.endPoints.checkPoints}`, callback);
-    }
-
-    getLockDowns(callback) {
-        this._request(`${this.baseUrl}/${this.endPoints.checkPoints}`, callback);
+    getTotalStatus(status, array) {
+        return array.reduce((accumulator, item) => {
+            return accumulator += (item.status.toLowerCase() == status.toLowerCase() ? 1 : 0);
+        }, 0);
     }
 }

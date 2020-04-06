@@ -35,6 +35,7 @@
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "browserslist": "^4.10.0",
+    "countup.js": "^2.0.4",
     "font-awesome": "^4.7.0",
     "i": "^0.3.6",
     "leaflet-geosearch": "^2.7.0"
