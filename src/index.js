@@ -5,43 +5,30 @@ import CovidApi from './modules/CovidApi';
 import Helper from './modules/Helper.js';
 import Cache from './modules/Cache';
 import { CountUp } from 'countup.js';
+import Chart from 'chart.js'
 
 
 // instantiate
 const api          = new CovidApi();
 const helper       = new Helper();
 const cache        = new Cache(); // instantiate cache
-cache.init() // enable cache
+// cache.init() // enable cache
 
      
 // get total cases
 const app = {
     totalCase: function() {
         
-        // get data from the cache if enabled and id the cached item exist
-        if(cache.enabled && cache._isItemExist('total-cases')) {
-
-            // generate data from the cache
-            const covidCache     = cache.storage.getItem('covid');
-            const totalCaseArray = JSON.parse(covidCache).filter(item => item.name == 'total-cases');
-           
-           populateData('.covid-total', totalCaseArray[0].value);
-           console.log('total cases generated from the cache');
+        // get resources from the server
+        api.get(`${api.baseUrl}/${api.endPoints.cases}`, response => {
+            let array     = response.data;
             
-        } else {
+            populateData('.covid-total', array);
 
-            // get resources from the server
-            api.get(`${api.baseUrl}/${api.endPoints.cases}`, response => {
-                let array     = response.data;
+            //add total cases to the cache
+            console.log('total cases generated from the server');
 
-                populateData('.covid-total', array);
-
-                //add total cases to the cache
-                cache.add('total-cases', array)
-                console.log('total cases generated from the server');
-
-            });
-        }
+        });
 
         function populateData (selector, array) {
             const elements = document.querySelectorAll(selector);
@@ -56,11 +43,79 @@ const app = {
                 }
             });
         }
-        
-        
+    },
+    totalCasesTable: function() {
+
+        // table of cases in the philippines
+        let listContainer1 =  document.querySelector('.total-cases-list[data-location="inside"]'); // table rows container
+        let html1 = '';
+
+        //get data from the server
+        api.get(`${api.baseUrl}/${api.endPoints.cases}`, response => {
+            let data = response.data;
+            
+            for (let item of data) {
+                let badgeClass = 'badge-warning';
+                let status = item.status.toLowerCase();
+
+                if(status == 'recovered') {
+                    badgeClass = 'badge-success';
+                }
+
+                if (status == 'died') {
+                    badgeClass = 'badge-danger';
+                }
+
+                html1 += `
+                    <tr>
+                        <th  scope="row">${item.case_no}</th>
+                        <td>${item.date}</td>
+                        <td>${item.nationality}</td>
+                        <td>${item.age}</td>
+                        <td>${item.gender}</td>
+                        <td>${item.hospital_admitted_to}</td>
+                        <td><span class="badge text-light ${badgeClass}">${item.status}</span></td>
+                    </tr>
+                `;
+            }
+
+            // append listst to the table
+            listContainer1.insertAdjacentHTML('beforeend', html1);
+            // remove loader
+            document.querySelector('.table-holder[data-location="inside"] .table-loader').remove();
+
+        });
+
+        // table of cases of filipino nationals outside the philippines
+        let listContainer2 = document.querySelector('.total-cases-list[data-location="outside"]'); // table rows container
+        let html2 = '';
+
+         //get data from the server
+         api.get(`${api.baseUrl}/${api.endPoints.casesOutside}`, response => {
+            let data = response.data;
+            
+            for (let item of data) {
+                html2 += `
+                    <tr>
+                        <th  scope="row">${item.country_territory_place}</th>
+                        <td>${item.confirmed}</td>
+                        <td>${item.recovered}</td>
+                        <td>${item.died}</td>
+                    </tr>
+                `;
+            }
+
+            // append listst to the table
+            listContainer2.insertAdjacentHTML('beforeend', html2);
+            // remove loader
+            document.querySelector('.table-holder[data-location="outside"] .table-loader').remove();
+
+        });
+
     },
     init: function() {
         this.totalCase();
+        this.totalCasesTable();
     }
 };
 

@@ -13,20 +13,18 @@
 <body>
     
     <!-- header -->
-    <header class="header" style="display:none;">
-        <div class="container">
+    <header class="header bg-light">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
                     <div class="header-inner  d-flex align-items-center">
                         <div class="header-col header-left">
-                            <a href="#" class="header-logo">
-                                <h2>COVID 19 Tracker PH</h2>
-                            </a>
+                            <h2 class="header-logo">COVID 19 Tracker PH</h2>
                         </div>
-                        <div class="header-col header-right flex-fill">
+                        <div class="header-col header-right">
                             <nav class="navigation">
-                                <ul class="nav nav-pills justify-content-end flex-column">
-                                    <li class="nav-item"><a class="nav-link active" href="#">Cases</a></li>
+                                <ul class="nav nav-pills justify-content-end">
+                                    <li class="nav-item"><a class="nav-link" href="#">Cases</a></li>
                                     <li class="nav-item"><a class="nav-link" href="#">Fatality Rate</a></li>
                                     <li class="nav-item"><a class="nav-link" href="#">Map Search</a></li>
                                     <li class="nav-item"><a class="nav-link" href="#">Checkpoints</a></li>
@@ -43,30 +41,13 @@
     
     <!-- main content -->
     <main>
-        <!-- sidebar -->
-        <aside class="sidebar">
-            <div class="sidebar-text">
-                <h2 class="sidebar-title">COVID 19 Tracker PH</h2>
-            </div>
-            <nav class="navigation">
-                <ul class="nav nav-pills justify-content-end flex-column">
-                    <li class="nav-item"><a class="nav-link" href="#">Cases</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Fatality Rate</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Map Search</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Checkpoints</a></li>
-                </ul>
-            </nav>
-        </aside>
-        <!-- end of sidebar -->
 
-        <!-- content -->
-        
         <!-- section wrapper -->
         <div class="section-wrapper">
             <!-- section 1 -->
             <section class="section total-case" id="total-case">
                 <div class="container-fluid">
-                    <h2 class="section-title">Total Cases in the Philippines</h2>
+                    <h2 class="section-title">Cases Overview</h2>
                     <div class="jumbotron total-case-main text-center">
                         <h1 class="display-4 covid-total" data-total-case="total">
                             <span class="spinner-border text-secondary" role="status">
@@ -113,14 +94,64 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </section>
+            <!-- end section 1 -->
+
+            <!-- section 2 -->
+            <section class="section table-total-case-main">
+                <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
+                            <h3 class="text-muted my-2">Cases in the Philippines</h3>
+                            <div class="table-holder" data-location="inside">
+                                <div class="spinner-border text-secondary table-loader" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
                             
+                                <div class="table-responsive table-wrapper">
+                                    <table class="table table-hover">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th scope="col">Case no. <button type="button" class="btn btn-secondary table-sort-btn"><i class="fa fa-arrow-down" aria-hidden="true"></i></button></th>
+                                                <th scope="col">Date <button type="button" class="btn btn-secondary table-sort-btn"><i class="fa fa-arrow-down" aria-hidden="true"></i></button></th>
+                                                <th scope="col">Nationality <button type="button" class="btn btn-secondary table-sort-btn"><i class="fa fa-arrow-down" aria-hidden="true"></i></button></th>
+                                                <th scope="col">Age <button type="button" class="btn btn-secondary table-sort-btn"><i class="fa fa-arrow-down" aria-hidden="true"></i></button></th>
+                                                <th scope="col">Gender <button type="button" class="btn btn-secondary table-sort-btn"><i class="fa fa-arrow-down" aria-hidden="true"></i></button></th>
+                                                <th scope="col">Hospital Admitted to <button type="button" class="btn btn-secondary table-sort-btn"><i class="fa fa-arrow-down" aria-hidden="true"></i></button></th>
+                                                <th scope="col">Status <button type="button" class="btn btn-secondary table-sort-btn"><i class="fa fa-arrow-down" aria-hidden="true"></i></button></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="total-cases-list" data-location="inside">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <h3 class="text-muted mt-5 mb-2">Cases of Filipino Nationals Outside the Philippines</h3>
+                            <div class="table-holder" data-location="outside">
+                                <div class="spinner-border text-secondary table-loader" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            
+                                <div class="table-responsive table-wrapper">
+                                    <table class="table table-hover">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th scope="col">Place</th>
+                                                <th scope="col">Confirmed</th>
+                                                <th scope="col">Recovered</th>
+                                                <th scope="col">Died</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="total-cases-list" data-location="outside"></tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
-            <!-- end section 1 -->
+            <!-- end section 2 -->
         </div>
 
         <!-- end of content -->

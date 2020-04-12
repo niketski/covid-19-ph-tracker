@@ -1,9 +1,7 @@
 export default class Cache {
     
     constructor() {
-        this.storage     = window.localStorage;
-        this.storageName = 'covid'; 
-        this.enabled     = false;
+        this.storage = window.localStorage;
     }
 
     add(name, value) {
@@ -12,12 +10,14 @@ export default class Cache {
             return 'Please provide another cache name';
         } 
 
-        const storageArray = JSON.parse(this.storage.getItem(this.storageName));
-        const item         = new CacheItem(name, value);
+        const storageArray = JSON.parse(this.storage.getItem(name));
+        const item         = new CacheItem(value);
 
-        storageArray.push(item);
+        this.storage.setItem(name, JSON.stringify(item));
+        
+        // storageArray.push(item);
     
-        this.storage.setItem(this.storageName, JSON.stringify(storageArray));
+        // this.storage.setItem(this.storageName, JSON.stringify(storageArray));
     }
 
     get(name) {
@@ -34,12 +34,7 @@ export default class Cache {
     }
 
     _isItemExist(name) {
-        const storageArray = JSON.parse(this.storage.getItem(this.storageName));
-        const names   = storageArray.filter((item) => {
-            return item.name == name;
-        });
-        
-        return names.length >= 1 ? true : false;
+        return this.storage.getItem(name) != null ? this.storage.getItem(name) : false;
     }
 
     init () {
@@ -52,8 +47,7 @@ export default class Cache {
 }
 
 class CacheItem {
-    constructor(name, value) {
-        this.name  = name;
+    constructor(value) {
         this.value = value;
         this.dateCached = new Date();
     }
