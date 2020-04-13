@@ -58,6 +58,29 @@ main {
     position: relative;
 }
 
+.table-sort-btn {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 5px;
+    font-size: 11px;
+    margin-left: 5px;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: all .4s ease;
+}
+
+.table-sort-btn[data-sort="asc"] {
+    transform: rotate(0);
+}
+
+.table-sort-btn[data-sort="des"] {
+    transform: rotate(180deg);
+}
+
+.table-sort-btn.active,
+.table-sort-btn:hover {
+    opacity: 1;
+}
 /*
     ========================
     SIDENAV

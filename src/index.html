@@ -103,48 +103,52 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <h3 class="text-muted my-2">Cases in the Philippines</h3>
-                            <div class="table-holder" data-location="inside">
-                                <div class="spinner-border text-secondary table-loader" role="status">
-                                    <span class="sr-only">Loading...</span>
-                                </div>
-                            
-                                <div class="table-responsive table-wrapper">
-                                    <table class="table table-hover">
-                                        <thead class="thead-light">
-                                            <tr>
-                                                <th scope="col">Case no. <button type="button" class="btn btn-secondary table-sort-btn"><i class="fa fa-arrow-down" aria-hidden="true"></i></button></th>
-                                                <th scope="col">Date <button type="button" class="btn btn-secondary table-sort-btn"><i class="fa fa-arrow-down" aria-hidden="true"></i></button></th>
-                                                <th scope="col">Nationality <button type="button" class="btn btn-secondary table-sort-btn"><i class="fa fa-arrow-down" aria-hidden="true"></i></button></th>
-                                                <th scope="col">Age <button type="button" class="btn btn-secondary table-sort-btn"><i class="fa fa-arrow-down" aria-hidden="true"></i></button></th>
-                                                <th scope="col">Gender <button type="button" class="btn btn-secondary table-sort-btn"><i class="fa fa-arrow-down" aria-hidden="true"></i></button></th>
-                                                <th scope="col">Hospital Admitted to <button type="button" class="btn btn-secondary table-sort-btn"><i class="fa fa-arrow-down" aria-hidden="true"></i></button></th>
-                                                <th scope="col">Status <button type="button" class="btn btn-secondary table-sort-btn"><i class="fa fa-arrow-down" aria-hidden="true"></i></button></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="total-cases-list" data-location="inside">
-                                        </tbody>
-                                    </table>
+                            <h3 class="text-muted mb-4">Cases in the Philippines</h3>
+                            <div class="table-group" data-table-id="cases-inside">
+                                <div class="table-holder">
+                                    <div class="spinner-border text-secondary table-loader" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                    <div class="table-responsive table-wrapper">
+                                        <table class="table table-hover">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th scope="col">Case no.</th>
+                                                    <th scope="col">Date</th>
+                                                    <th scope="col">Nationality</th>
+                                                    <th scope="col">Age</th>
+                                                    <th scope="col">Gender</th>
+                                                    <th scope="col">Hospital Admitted to</th>
+                                                    <th scope="col">Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="total-cases-list">
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                            <h3 class="text-muted mt-5 mb-2">Cases of Filipino Nationals Outside the Philippines</h3>
-                            <div class="table-holder" data-location="outside">
-                                <div class="spinner-border text-secondary table-loader" role="status">
-                                    <span class="sr-only">Loading...</span>
-                                </div>
                             
-                                <div class="table-responsive table-wrapper">
-                                    <table class="table table-hover">
-                                        <thead class="thead-light">
-                                            <tr>
-                                                <th scope="col">Place</th>
-                                                <th scope="col">Confirmed</th>
-                                                <th scope="col">Recovered</th>
-                                                <th scope="col">Died</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="total-cases-list" data-location="outside"></tbody>
-                                    </table>
+                            <div class="table-group" data-table-id="cases-outside">
+                                <h3 class="text-muted mt-5 mb-2">Cases of Filipino Nationals Outside the Philippines</h3>
+                                <div class="table-holder">
+                                    <div class="spinner-border text-secondary table-loader" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                
+                                    <div class="table-responsive table-wrapper">
+                                        <table class="table table-hover">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th scope="col">Place</th>
+                                                    <th scope="col">Confirmed</th>
+                                                    <th scope="col">Recovered</th>
+                                                    <th scope="col">Died</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="total-cases-list"></tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>

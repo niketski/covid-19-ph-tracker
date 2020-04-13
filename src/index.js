@@ -47,7 +47,7 @@ const app = {
     totalCasesTable: function() {
 
         // table of cases in the philippines
-        let listContainer1 =  document.querySelector('.total-cases-list[data-location="inside"]'); // table rows container
+        let listContainer1 =  document.querySelector('.table-group[data-table-id="cases-inside"] .total-cases-list'); // table rows container
         let html1 = '';
 
         //get data from the server
@@ -68,7 +68,7 @@ const app = {
 
                 html1 += `
                     <tr>
-                        <th  scope="row">${item.case_no}</th>
+                        <th scope="row">${item.case_no}</th>
                         <td>${item.date}</td>
                         <td>${item.nationality}</td>
                         <td>${item.age}</td>
@@ -81,13 +81,15 @@ const app = {
 
             // append listst to the table
             listContainer1.insertAdjacentHTML('beforeend', html1);
-            // remove loader
-            document.querySelector('.table-holder[data-location="inside"] .table-loader').remove();
 
+            // remove loader
+            document.querySelector('.table-group[data-table-id="cases-inside"] .table-loader').remove();
+           
+            //helper.sortableTable('asdasd');
         });
 
         // table of cases of filipino nationals outside the philippines
-        let listContainer2 = document.querySelector('.total-cases-list[data-location="outside"]'); // table rows container
+        let listContainer2 = document.querySelector('.table-group[data-table-id="cases-outside"] .total-cases-list'); // table rows container
         let html2 = '';
 
          //get data from the server
@@ -108,13 +110,17 @@ const app = {
             // append listst to the table
             listContainer2.insertAdjacentHTML('beforeend', html2);
             // remove loader
-            document.querySelector('.table-holder[data-location="outside"] .table-loader').remove();
+            document.querySelector('.table-group[data-table-id="cases-outside"] .table-loader').remove();
+
+            helper.sortableTable('[data-table-id="cases-outside"] table');
 
         });
 
+       
+
     },
     init: function() {
-        this.totalCase();
+        this.totalCase(); 
         this.totalCasesTable();
     }
 };
