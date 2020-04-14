@@ -46,7 +46,7 @@
         <div class="section-wrapper">
             <!-- section 1 -->
             <section class="section total-case" id="total-case">
-                <div class="container-fluid">
+                <div class="container">
                     <h2 class="section-title">Cases Overview</h2>
                     <div class="jumbotron total-case-main text-center">
                         <h1 class="display-4 covid-total" data-total-case="total">
@@ -103,8 +103,8 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <h3 class="text-muted mb-4">Cases in the Philippines</h3>
                             <div class="table-group" data-table-id="cases-inside">
+                                <h3 class="text-muted mb-4">Cases in the Philippines</h3>
                                 <div class="table-holder">
                                     <div class="spinner-border text-secondary table-loader" role="status">
                                         <span class="sr-only">Loading...</span>
@@ -113,13 +113,13 @@
                                         <table class="table table-hover">
                                             <thead class="thead-light">
                                                 <tr>
-                                                    <th scope="col">Case no.</th>
-                                                    <th scope="col">Date</th>
-                                                    <th scope="col">Nationality</th>
-                                                    <th scope="col">Age</th>
-                                                    <th scope="col">Gender</th>
-                                                    <th scope="col">Hospital Admitted to</th>
-                                                    <th scope="col">Status</th>
+                                                    <th data-sort="number" scope="col">Case no.</th>
+                                                    <th data-sort="string" scope="col">Date</th>
+                                                    <th data-sort="string" scope="col">Nationality</th>
+                                                    <th data-sort="number" scope="col">Age</th>
+                                                    <th data-sort="string" scope="col">Gender</th>
+                                                    <th data-sort="string" scope="col">Hospital Admitted to</th>
+                                                    <th data-sort="string" scope="col">Status</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="total-cases-list">
@@ -130,7 +130,7 @@
                             </div>
                             
                             <div class="table-group" data-table-id="cases-outside">
-                                <h3 class="text-muted mt-5 mb-2">Cases of Filipino Nationals Outside the Philippines</h3>
+                                <h3 class="text-muted mt-5 mb-4">Cases of Filipino Nationals Outside the Philippines</h3>
                                 <div class="table-holder">
                                     <div class="spinner-border text-secondary table-loader" role="status">
                                         <span class="sr-only">Loading...</span>
@@ -140,10 +140,10 @@
                                         <table class="table table-hover">
                                             <thead class="thead-light">
                                                 <tr>
-                                                    <th scope="col">Place</th>
-                                                    <th scope="col">Confirmed</th>
-                                                    <th scope="col">Recovered</th>
-                                                    <th scope="col">Died</th>
+                                                    <th data-sort="string" scope="col">Place</th>
+                                                    <th data-sort="number" scope="col">Confirmed</th>
+                                                    <th data-sort="number" scope="col">Recovered</th>
+                                                    <th data-sort="number" scope="col">Died</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="total-cases-list"></tbody>
@@ -156,6 +156,23 @@
                 </div>
             </section>
             <!-- end section 2 -->
+
+            <!-- section 3 -->
+            <section class="section fatality-rate">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Fatality Rate by Age</h5>
+                            <canvas width="600" height="400" class="fatality-chart" data-fatality-type="age"></canvas>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Fatality Rate by Gender</h5>
+                            <canvas width="600" height="400" class="fatality-chart" data-fatality-type="gender"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- end section 3 -->
         </div>
 
         <!-- end of content -->

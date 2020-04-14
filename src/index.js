@@ -85,7 +85,8 @@ const app = {
             // remove loader
             document.querySelector('.table-group[data-table-id="cases-inside"] .table-loader').remove();
            
-            //helper.sortableTable('asdasd');
+            // enable table sorting
+            helper.sortableTable('[data-table-id="cases-inside"] table');
         });
 
         // table of cases of filipino nationals outside the philippines
@@ -112,16 +113,35 @@ const app = {
             // remove loader
             document.querySelector('.table-group[data-table-id="cases-outside"] .table-loader').remove();
 
+            // enable table sorting
             helper.sortableTable('[data-table-id="cases-outside"] table');
 
         });
 
-       
+    },
+    fatalityRate: function(){
+        const ageChartCtx = document.querySelector('.fatality-chart[data-fatality-type="age"]').getContext('2d');
+        const ageChart    = new Chart(ageChartCtx , {
+            type: 'bar',
+            data: {
+                labels: ['0-10','11-20', '21-30', '31-40', '41-50', '51-60', '61-70', '71-80', '81-90'],
+                datasets: [
+                    {
+                        label: '',
+                        backgroundColor: 'rgba(52, 73, 94, 0.5)',
+                        borderColor: 'rgba(52, 73, 94, 1)',
+                        data: [10, 150, 200, 400, 400, 400, 400, 400, 400]
+                    }
+                ]
+            },
+            options: {}
+        });
 
     },
     init: function() {
         this.totalCase(); 
         this.totalCasesTable();
+        this.fatalityRate();
     }
 };
 

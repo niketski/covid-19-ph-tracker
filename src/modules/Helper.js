@@ -6,18 +6,17 @@ export default class Helper {
 
     sortableTable(tableSelector) {
         
-        function sortTableByColumn(table, column, asc = true) {
+        function sortTableByColumn(table, column, asc = true, sortType = 'string') {
             const dirModifier = asc ? 1 : -1;
             const tBody = table.tBodies[0];
             const rows  = Array.from(tBody.querySelectorAll('tr')); 
 
             // sorted rows
-            const sortedRows = rows.sort((a, b) => {
-                const columnA = a.querySelector(`td:nth-child(${ column + 1}), th:nth-child(${ column + 1})`).textContent.trim();
-                const columnB = b.querySelector(`td:nth-child(${ column + 1}), th:nth-child(${ column + 1})`).textContent.trim();
-            
-                return columnA < columnB ? (-1 * dirModifier) : (1 * dirModifier);
-            });
+            let sortedRows = rows.sort(stringSort);
+
+            if(sortType == 'number') {
+                sortedRows = rows.sort(numberSort);
+            }
 
             // remove existing rows
             while(tBody.firstChild) {
@@ -31,6 +30,22 @@ export default class Helper {
             table.querySelectorAll('thead th').forEach(th => th.classList.remove('table-sort-asc', 'table-sort-des'));
             table.querySelector(`thead th:nth-child(${column + 1})`).classList.toggle('table-sort-asc', asc);
             table.querySelector(`thead th:nth-child(${column + 1})`).classList.toggle('table-sort-des', !asc);
+
+            // sort functions
+
+            function stringSort(a, b) { // sort function for strings
+                const columnA = a.querySelector(`td:nth-child(${ column + 1}), th:nth-child(${ column + 1})`).textContent.trim();
+                const columnB = b.querySelector(`td:nth-child(${ column + 1}), th:nth-child(${ column + 1})`).textContent.trim();
+            
+                return columnA < columnB ? (-1 * dirModifier) : (1 * dirModifier);
+            }
+
+            function numberSort(a, b) { // sort function for numbers
+                const columnA = parseInt(a.querySelector(`td:nth-child(${ column + 1}), th:nth-child(${ column + 1})`).textContent.trim());
+                const columnB = parseInt(b.querySelector(`td:nth-child(${ column + 1}), th:nth-child(${ column + 1})`).textContent.trim());
+                
+                return (columnA - columnB) < 0 ? (-1 * dirModifier) : (1 * dirModifier);
+            }
         }
 
         //apply sorting to the specified selector
@@ -38,10 +53,14 @@ export default class Helper {
             headerCell.addEventListener('click', function() {
                 const table        = headerCell.parentElement.parentElement.parentElement;
                 const headingIndex = Array.prototype.indexOf.call(headerCell.parentElement.children, headerCell); 
+                const isAscOrder   = headerCell.classList.contains('table-sort-asc');
+                const sortType     = headerCell.dataset.sort;
 
-                console.log(table);
-                console.log(headingIndex);
+               sortTableByColumn(table, headingIndex, !isAscOrder, sortType);
             });
-        });;
+        });
+
+        // initially sort the first column
+        document.querySelector(tableSelector).querySelector('thead th').click();
     } 
 }
