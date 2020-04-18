@@ -90,6 +90,16 @@ main {
 .table-sort-btn:hover {
     opacity: 1;
 }
+
+.table td {
+    font-size: 12px;
+}
+
+.table thead th {
+    font-size: 12px;
+    padding-right: 30px;
+}
+
 /*
     ========================
     SIDENAV

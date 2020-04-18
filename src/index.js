@@ -89,37 +89,16 @@ const app = {
             helper.sortableTable('[data-table-id="cases-inside"] table');
         });
 
-        // table of cases of filipino nationals outside the philippines
-        let listContainer2 = document.querySelector('.table-group[data-table-id="cases-outside"] .total-cases-list'); // table rows container
-        let html2 = '';
-
-         //get data from the server
-         api.get(`${api.baseUrl}/${api.endPoints.casesOutside}`, response => {
-            let data = response.data;
-            
-            for (let item of data) {
-                html2 += `
-                    <tr>
-                        <th  scope="row">${item.country_territory_place}</th>
-                        <td>${item.confirmed}</td>
-                        <td>${item.recovered}</td>
-                        <td>${item.died}</td>
-                    </tr>
-                `;
-            }
-
-            // append listst to the table
-            listContainer2.insertAdjacentHTML('beforeend', html2);
-            // remove loader
-            document.querySelector('.table-group[data-table-id="cases-outside"] .table-loader').remove();
-
-            // enable table sorting
-            helper.sortableTable('[data-table-id="cases-outside"] table');
-
-        });
-
     },
     fatalityRate: function(){
+        let value = null;
+        // chart default settings
+        Chart.defaults.global.legend.display = false; // hide legends
+        Chart.defaults.global.animation.onProgress = function(animation) {
+            value = animation.animationObject.currentStep / animation.animationObject.numSteps;
+            console.log(Math.round(value));
+        }
+       
         const ageChartCtx = document.querySelector('.fatality-chart[data-fatality-type="age"]').getContext('2d');
         const ageChart    = new Chart(ageChartCtx , {
             type: 'bar',
@@ -134,7 +113,8 @@ const app = {
                     }
                 ]
             },
-            options: {}
+            options: {
+            }
         });
 
     },
