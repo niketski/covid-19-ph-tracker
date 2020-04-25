@@ -5,13 +5,15 @@ import CovidApi from './modules/CovidApi';
 import Helper from './modules/Helper.js';
 import Cache from './modules/Cache';
 import { CountUp } from 'countup.js';
-import Chart from 'chart.js'
+import Chart, { helpers } from 'chart.js'
+import MapApi from './modules/Map';
 
 
 // instantiate
 const api          = new CovidApi();
 const helper       = new Helper();
 const cache        = new Cache(); // instantiate cache
+const map          = new MapApi();
 // cache.init() // enable cache
 
      
@@ -20,29 +22,47 @@ const app = {
     totalCase: function() {
         
         // get resources from the server
-        api.get(`${api.baseUrl}/${api.endPoints.cases}`, response => {
-            let array     = response.data;
-            
-            populateData('.covid-total', array);
+        api.get(`${api.baseUrl}/${api.endPoints.total}`, response => {
+            let data       = response.data.data;
+            const totalItems = document.querySelectorAll('.covid-total'); 
+           
+            console.log(response);
+
+            //populate data 
+            totalItems.forEach(item => {
+                const type = item.dataset.total;
+                
+                item.textContent = helper.formatNumber(data[type]);
+
+            });
 
             //add total cases to the cache
             console.log('total cases generated from the server');
 
         });
 
-        function populateData (selector, array) {
-            const elements = document.querySelectorAll(selector);
-            
-            elements.forEach(element => {
-                let status = element.dataset.totalCase.toLowerCase();
-                
-                if(status == 'total') {
-                    element.textContent = helper.formatNumber(array.length);
-                } else {
-                    element.textContent = helper.formatNumber(api.getTotalStatus(status, array));
-                }
-            });
-        }
+    },
+    dailyCases: function() {
+
+        // get resources from the server
+        api.get(`${api.baseUrl}/${api.endPoints.total}`, response => {
+            let data       = response.data.data;
+            const dailyCasesItems = document.querySelectorAll('.daily-cases-item'); 
+           
+            // populate data for each item
+            dailyCasesItems.forEach(item => {
+                const itemType         = item.dataset.dailyCases;
+                const contentContainer = item.querySelector('.card-text');
+                console.log(contentContainer);
+                // remove current content
+                contentContainer.innerHTML = `<span class="cases-count">${helper.formatNumber(data[itemType])}</span>`;
+
+                // insert data
+                // contentContainer.innerHTML = `${data[itemType]}`;
+            });    
+
+        });
+
     },
     totalCasesTable: function() {
 
@@ -52,8 +72,7 @@ const app = {
 
         //get data from the server
         api.get(`${api.baseUrl}/${api.endPoints.cases}`, response => {
-            let data = response.data;
-            
+            let data = response.data.data;
             for (let item of data) {
                 let badgeClass = 'badge-warning';
                 let status = item.status.toLowerCase();
@@ -62,17 +81,17 @@ const app = {
                     badgeClass = 'badge-success';
                 }
 
-                if (status == 'died') {
+                if (status == 'expired') {
                     badgeClass = 'badge-danger';
                 }
 
                 html1 += `
                     <tr>
                         <th scope="row">${item.case_no}</th>
-                        <td>${item.date}</td>
+                        <td>${item.date_of_announcement_to_public}</td>
                         <td>${item.nationality}</td>
                         <td>${item.age}</td>
-                        <td>${(item.gender == null || item.gender == undefined || item.gender == '') ? 'TBA' : item.gender}</td> 
+                        <td>${(item.sex == null || item.sex == undefined || item.sex == '') ? 'TBA' : item.sex}</td> 
                         <td>${item.hospital_admitted_to}</td>
                         <td><span class="badge text-light ${badgeClass}">${item.status}</span></td>
                     </tr>
@@ -94,6 +113,9 @@ const app = {
         let value = null;
         // chart default settings
         Chart.defaults.global.legend.display = false; // hide legends
+        Chart.defaults.global.tooltips.callbacks.label = function (item, object) {
+            return `${item.value}%`;
+        }
         
         // fatality rate by age canvas
         const ageChartCtx = document.querySelector('.fatality-chart[data-fatality-type="age"]').getContext('2d');
@@ -104,8 +126,8 @@ const app = {
 
         //get data from the server
         api.get(`${api.baseUrl}/${api.endPoints.cases}`, response => {
-            let data = response.data;
-
+            let data = response.data.data;
+            
             // age chart config
             const ageChartConfig = {
                 type: 'bar',
@@ -169,16 +191,16 @@ const app = {
                     let labelData = data.reduce((currentValue, item) => {
                         return (item.age >= startAge && item.age <= endAge) ? currentValue += 1 : currentValue;
                     }, 0);
-
-                    return labelData;
+                   
+                   return percentage(labelData, data.length).toFixed(2);
 
                 } else { // this means the label is 'TBA' or unconfirmed
                     
                     let labelData = data.reduce((currentValue, item) =>{
                         return item.age == 0 || typeof item.age == 'string' ? currentValue += 1 : currentValue;
                     }, 0);
-
-                    return labelData;
+                    
+                    return percentage(labelData, data.length).toFixed(2);
                 }
                 
 
@@ -193,28 +215,58 @@ const app = {
             const generatedData = labelArray.map(label => {
 
                 if(label.toLowerCase() == 'tba') {
-                    return data.reduce((prevValue, value) => {
-                        return (value.gender.toLowerCase() == 'tba' || value.gender.toLowerCase() == '') ? prevValue += 1 : prevValue;
+                    let total = data.reduce((prevValue, value) => {
+                        return (value.sex.toLowerCase() == 'tba' || value.sex.toLowerCase() == '') ? prevValue += 1 : prevValue;
                     }, 0);
+
+                    return percentage(total, data.length).toFixed(2);
                 }
                 
                 label = label == 'Female' ? 'F' : 'M';
 
-                return data.reduce((prevValue, value) => {
-                    return label.toLowerCase() == value.gender.toLowerCase() ? prevValue += 1 : prevValue;
+                let total = data.reduce((prevValue, value) => {
+                    return label.toLowerCase() == value.sex.toLowerCase() ? prevValue += 1 : prevValue;
                 }, 0);
+
+                return percentage(total, data.length).toFixed(2);
                 
             });
-    
+            
             return generatedData;
         }
 
+        // calculate percentage
+        function percentage(a, b) {
+            return (a / b) * 100;
+        }
+    },
+    mMCommunityQuarantineCheckpoints: function() {
 
+        const map1 = map.addMap('mm-checkpoint-map', {
+            center: [51.505, -0.09],
+            zoom: 13
+        });
+
+        map1.setView([map.currentPos().latitude, map.currentPos().longitude], 12);
+        map1.setView([14.769163, 121.080297], 11);
+        api.get(`${api.baseUrl}/${api.endPoints.checkPoints}`, response => {
+            const data = response.data.data;
+           
+            for (let item in data) {
+
+                L.marker([data[item].lat, data[item].lng], {
+                }).addTo(map1);
+            }
+        
+        })
+        
     },
     init: function() {
+        this.dailyCases();
         this.totalCase(); 
         this.totalCasesTable();
         this.fatalityRate();
+        this.mMCommunityQuarantineCheckpoints();
     }
 };
 

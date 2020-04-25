@@ -98,6 +98,7 @@ main {
 .table thead th {
     font-size: 12px;
     padding-right: 30px;
+    min-width: 110px;
 }
 
 /*
@@ -252,6 +253,20 @@ header.header {
 
 /*
     ========================
+    DAILY CASES
+    ========================  
+*/
+
+.daily-cases {
+
+    .cases-count {
+        font-size: 42px;
+        font-weight: 700;
+    }
+}
+
+/*
+    ========================
     TOTAL CASES MAIN TABLES
     ========================  
 */ 
@@ -273,3 +288,15 @@ header.header {
     }
 }
 
+
+/*
+    ========================
+    METERO MANILA CHECKPOINTS
+    ========================  
+*/
+.mm-checkpoint {
+
+    #mm-checkpoint-map{
+        height: 400px;
+    }
+}

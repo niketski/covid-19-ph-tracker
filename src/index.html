@@ -48,19 +48,19 @@
             <section class="section total-case" id="total-case">
                 <div class="container">
                     <h2 class="section-title">Cases Overview</h2>
-                    <div class="jumbotron total-case-main text-center">
-                        <h1 class="display-4 covid-total" data-total-case="total">
+                    <div class="jumbotron total-case-main text-center shadow">
+                        <h1 class="display-4 covid-total" data-total="cases">
                             <span class="spinner-border text-secondary" role="status">
                                 <span class="sr-only">Loading...</span>
                             </span>
                         </h1>
-                        <p class="lead">Total Case</p>
+                        <p class="lead">Total Cases</p>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="card total-case-item case-admitted">
                                 <div class="card-body">
-                                    <h3 class="card-title  covid-total" data-total-case="admitted">
+                                    <h3 class="card-title  covid-total" data-total="admitted">
                                         <span class="spinner-border text-light" role="status">
                                             <span class="sr-only">Loading...</span>
                                         </span>
@@ -72,7 +72,7 @@
                         <div class="col-md-4">
                             <div class="card total-case-item case-recover">
                                 <div class="card-body">
-                                    <h3 class="card-title covid-total" data-total-case="recovered">
+                                    <h3 class="card-title covid-total" data-total="recoveries">
                                         <span class="spinner-border text-light" role="status">
                                             <span class="sr-only">Loading...</span>
                                         </span>
@@ -84,7 +84,7 @@
                         <div class="col-md-4">
                             <div class="card total-case-item case-die">
                                 <div class="card-body">
-                                    <h3 class="card-title covid-total" data-total-case="died">
+                                    <h3 class="card-title covid-total" data-total="deaths">
                                         <span class="spinner-border text-light" role="status">
                                             <span class="sr-only">Loading...</span>
                                         </span>
@@ -99,12 +99,62 @@
             <!-- end section 1 -->
 
             <!-- section 2 -->
+            <section class="section daily-cases">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2 class="section-title">Daily Cases</h2>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="card text-center shadow daily-cases-item" data-daily-cases="cases_today">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-muted">Cases</h5>
+                                            <div class="card-text">
+                                                <div class="spinner-border text-dark" role="status">
+                                                    <span class="sr-only">Loading ...</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card text-center shadow daily-cases-item" data-daily-cases="deaths_today">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-muted">Deaths</h5>
+                                            <div class="card-text">
+                                                <div class="spinner-border text-dark" role="status">
+                                                    <span class="sr-only">Loading ...</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card text-center shadow daily-cases-item" data-daily-cases="recoveries_today">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-muted">Recoveries</h5>
+                                            <div class="card-text">
+                                                <div class="spinner-border text-dark" role="status">
+                                                    <span class="sr-only">Loading ...</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- end section 2 -->
+
+            <!-- section 3 -->
             <section class="section table-total-case-main">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-group" data-table-id="cases-inside">
-                                <h3 class="text-muted mb-4">Cases in the Philippines</h3>
+                                <h3 class="mb-4 section-title">Cases in the Philippines</h3>
                                 <div class="table-holder">
                                     <div class="spinner-border text-secondary table-loader" role="status">
                                         <span class="sr-only">Loading...</span>
@@ -113,7 +163,7 @@
                                         <table class="table table-hover">
                                             <thead class="thead-light">
                                                 <tr>
-                                                    <th data-sort="number" scope="col">Case no.</th>
+                                                    <th data-sort="string" scope="col">Case no.</th>
                                                     <th data-sort="string" scope="col">Date</th>
                                                     <th data-sort="string" scope="col">Nationality</th>
                                                     <th data-sort="number" scope="col">Age</th>
@@ -134,24 +184,46 @@
                     </div>
                 </div>
             </section>
-            <!-- end section 2 -->
+            <!-- end section 3 -->
 
-            <!-- section 3 -->
+            <!-- section 4 -->
             <section class="section fatality-rate">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6">
-                            <h5 class="mb-5">Fatality Rate by Age</h5>
+                            <h5 class="section-title mb-5">Fatality Rate by Age</h5>
                             <canvas width="600" height="400" class="fatality-chart" data-fatality-type="age" role="img" aria-label="fatality rate chart"></canvas>
                         </div>
                         <div class="col-md-6">
-                            <h5 class="mb-5">Fatality Rate by Gender</h5>
+                            <h5 class="section-title mb-5">Fatality Rate by Gender</h5>
                             <canvas width="600" height="400" class="fatality-chart" data-fatality-type="gender" rol="img" aria-label="fatality rate chart"></canvas>
                         </div>
                     </div>
                 </div>
             </section>
-            <!-- end section 3 -->
+            <!-- end section 4 -->
+
+            <!-- section 5 -->
+            <section class="section mm-checkpoint">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2 class="section-title mb-4">Metro Manila Community Quarantine Checkpoints</h2>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="map-wrapper">
+                                        <div id="mm-checkpoint-map"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- end section 5 -->
         </div>
 
         <!-- end of content -->

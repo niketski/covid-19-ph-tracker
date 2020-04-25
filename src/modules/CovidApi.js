@@ -9,7 +9,8 @@ export default class CovidApi {
             casesOutside: 'cases-outside-ph',
             testResults: 'test-results',
             checkPoints: 'mm-checkpoints',
-            lockdowns: 'lockdowns'
+            lockdowns: 'lockdowns',
+            total: 'total',
         };
     }
 
@@ -17,8 +18,9 @@ export default class CovidApi {
         try {
             const response = await axios.get(url);
             callback(response);
+            
         } catch(error) {
-            console.error('Invalid url');
+        
             callback(error);
         }
     }
