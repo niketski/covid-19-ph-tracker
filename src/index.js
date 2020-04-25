@@ -36,8 +36,9 @@ const app = {
 
             });
 
-            //add total cases to the cache
-            console.log('total cases generated from the server');
+           // update data last update date
+           document.querySelector('.cases-update-date').innerHTML = data.last_update;
+
 
         });
 
